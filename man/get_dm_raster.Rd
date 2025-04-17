@@ -2,7 +2,7 @@
 % Please edit documentation in R/dismapr.R
 \name{get_dm_raster}
 \alias{get_dm_raster}
-\title{Download DisMAP Raster}
+\title{Get DisMAP raster}
 \usage{
 get_dm_raster(
   dataset_code,

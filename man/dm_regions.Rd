@@ -3,7 +3,7 @@
 \docType{data}
 \name{dm_regions}
 \alias{dm_regions}
-\title{DisMAP Regions}
+\title{DisMAP regions, seasons and dataset_code}
 \format{
 \subsection{\code{dm_regions}}{
 

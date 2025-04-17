@@ -1,7 +1,7 @@
 # dismapr: An R Package for NOAA DisMAP Data Retrieval
 # Functions for working with the Distribution Mapping and Analysis Portal (DisMAP) API
 
-#' @title Get DisMAP Indicators Table
+#' @title Get DisMAP indicators table
 #' @description Download species indicators data including Center of Gravity metrics
 #' @param ... key = value pairs for filtering; where key could be any of the fields in the indicators table
 #' @return A sf object with indicators data
@@ -169,7 +169,7 @@ get_dm_dataset_species_years <- function(dataset_code, species_scientific){
     dplyr::pull(year)
 }
 
-#' @title Download DisMAP Raster
+#' @title Get DisMAP raster
 #' @description Download a single interpolated biomass raster by slice ID
 #' @param dataset_code The DisMAP dataset code (e.g., "AI", "EBS", "GOA"), per `dm_regions$dataset_code`
 #' @param species_scientific The scientific name of the species, per `get_dm_dataset_layers(dataset_code)`
@@ -301,7 +301,7 @@ get_dm_raster <- function(
   r
 }
 
-#' @title Get DisMAP Survey Locations
+#' @title Get DisMAP survey locations
 #' @description Download survey location points for a region
 #' @param dataset_code The DisMAP dataset code (e.g., "AI", "EBS", "GOA"), per `dm_regions$dataset_code`
 #' @param where Optional SQL WHERE clause to filter results (e.g., "year = 2015")

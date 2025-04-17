@@ -2,7 +2,7 @@
 % Please edit documentation in R/dismapr.R
 \name{get_dm_survey_locations}
 \alias{get_dm_survey_locations}
-\title{Get DisMAP Survey Locations}
+\title{Get DisMAP survey locations}
 \usage{
 get_dm_survey_locations(dataset_code, where = NULL)
 }

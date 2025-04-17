@@ -2,7 +2,7 @@
 % Please edit documentation in R/dismapr.R
 \name{get_dm_indicators}
 \alias{get_dm_indicators}
-\title{Get DisMAP Indicators Table}
+\title{Get DisMAP indicators table}
 \usage{
 get_dm_indicators(...)
 }
