@@ -18,10 +18,12 @@ Depends:
 LazyData: true
 Imports: 
     arcgislayers,
+    arcgisutils,
     dplyr,
     glue,
     janitor,
     purrr,
     sf,
     stringr,
+    terra,
     tibble

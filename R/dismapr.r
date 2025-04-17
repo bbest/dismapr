@@ -5,6 +5,7 @@
 #' @description Download species indicators data including Center of Gravity metrics
 #' @param ... key = value pairs for filtering; where key could be any of the fields in the indicators table
 #' @return A sf object with indicators data
+#' @importFrom arcgisutils parse_esri_json
 #' @importFrom dplyr arrange filter left_join mutate pull select
 #' @importFrom glue glue
 #' @importFrom httr2 request req_perform req_url_query  resp_body_json
@@ -190,6 +191,8 @@ get_dm_dataset_species_years <- function(dataset_code, species_scientific){
 #' @importFrom purrr pluck
 #' @importFrom stringr str_replace_all
 #' @importFrom tibble tibble
+#' @importFrom sf st_as_sf
+#' @importFrom terra rast writeRaster
 #' @export
 get_dm_raster <- function(
     dataset_code,
@@ -306,6 +309,9 @@ get_dm_raster <- function(
 #' @param dataset_code The DisMAP dataset code (e.g., "AI", "EBS", "GOA"), per `dm_regions$dataset_code`
 #' @param where Optional SQL WHERE clause to filter results (e.g., "year = 2015")
 #' @return A sf object with survey locations
+#' @importFrom arcgislayers arc_open get_layer arc_select
+#' @importFrom glue glue
+#' @importFrom sf st_as_sf
 #' @export
 get_dm_survey_locations <- function(
     dataset_code,
