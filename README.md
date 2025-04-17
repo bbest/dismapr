@@ -29,24 +29,6 @@ devtools::install_github("bbest/dismapr")
 
 See [Getting Started](articles/dismapr.html)
 
-## Available Regions
-
-DisMAP currently includes data for the following regions:
-
-- Aleutian Islands
-- Eastern Bering Sea
-- Gulf of Alaska
-- West Coast Triennial
-- West Coast Annual
-- Gulf of Mexico
-- Northeast US Spring
-- Northeast US Fall
-- Southeast US Fall
-- Southeast US Spring
-- Southeast US Summer
-- Northern Bering Sea
-- Eastern and Northern Bering Sea
-
 ## Important Notes
 
 - URLs for the DisMAP services may change as new data releases become available. Check the [DisMAP InPort page](https://www.fisheries.noaa.gov/inport/item/66799) for the most up-to-date URLs.
