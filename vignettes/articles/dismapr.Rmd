@@ -23,6 +23,7 @@ library(ggplot2)
 library(here)
 library(mapview)
 library(sf)
+library(terra)
 ```
 
 ## 1. Indicators
