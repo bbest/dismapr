@@ -1,0 +1,14 @@
+Package: dismapr
+Title: NOAA's Distribution Mapping and Analysis Portal (DisMAP) data retrieval
+Version: 0.1.0
+Authors@R: c(
+    person("Ben", "Best", , "ben@ecoquants.com", role = c("aut", "cre")),
+    person("Melissa", "Karp", , "melissa.karp@noaa.gov", role = c("aut", "cre"))
+  )
+Description: DisMapR is an R package that provides functions to easily interact with NOAA's Distribution Mapping and Analysis Portal (DisMAP) APIs. This package allows users to: 1) Download species indicators data (Center of Gravity, depth metrics, etc.); 2) Access and download interpolated biomass raster layers; 3) Retrieve survey location points; 4) Create visualizations of species distributions.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Config/Needs/website: rmarkdown
+URL: https://bbest.github.io/dismapr/

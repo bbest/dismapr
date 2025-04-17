@@ -1,2 +1,92 @@
-# dismapr
+# dismapr: NOAA DisMAP Data Retrieval Package
 R package that provides functions to easily interact with NOAA's Distribution Mapping and Analysis Portal (DisMAP) APIs
+
+## Overview
+
+DisMapR is an R package that provides functions to easily interact with NOAA's Distribution Mapping and Analysis Portal (DisMAP) APIs. This package allows users to:
+
+1. Download species indicators data (Center of Gravity, depth metrics, etc.)
+2. Access and download interpolated biomass raster layers
+3. Retrieve survey location points
+4. Create visualizations of species distributions
+
+## Installation
+
+```r
+# Install from GitHub
+devtools::install_github("bbest/dismapr")
+```
+
+## Required Packages
+
+DisMapR depends on the following packages:
+
+- dplyr
+- httr2
+- jsonlite
+- ggplot2
+- sf
+- terra
+
+For creating animated visualizations:
+
+- gganimate
+- gifski
+
+For color palettes:
+
+- cmocean (recommended)
+- viridis (alternative)
+
+## Basic Usage
+
+See [Getting Started](articles/dismapr.html)
+
+## Available Regions
+
+DisMAP currently includes data for the following regions:
+- Aleutian Islands
+- Eastern Bering Sea
+- Gulf of Alaska
+- West Coast Triennial
+- West Coast Annual
+- Gulf of Mexico
+- Northeast US Spring
+- Northeast US Fall
+- Southeast US Fall
+- Southeast US Spring
+- Southeast US Summer
+- Northern Bering Sea
+- Eastern and Northern Bering Sea
+
+## Important Notes
+
+- URLs for the DisMAP services may change as new data releases become available. Check the [DisMAP InPort page](https://www.fisheries.noaa.gov/inport/item/66799) for the most up-to-date URLs.
+- No data values in rasters are typically set to 3.4e+38 and should be treated as NA.
+- For better visualization, biomass values are often cube-root transformed.
+
+
+## Developer Notes
+
+The package is currently in development and may not include all features or be fully tested.
+
+```r
+devtools::document()
+
+pkgdown::build_site()
+```
+
+### Contributing
+
+Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
+
+To contribute to the package, please fork the repository and submit a pull request with your changes.
+
+## References
+
+- NOAA DisMAP portal: https://apps-st.fisheries.noaa.gov/dismap/DisMAP.html
+- Technical documentation: https://www.fisheries.noaa.gov/inport/item/66799
+
+## Citation
+
+If using this package for research, please cite both the package and the NOAA DisMAP data sources.
