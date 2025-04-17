@@ -1,4 +1,4 @@
-# dismapr: NOAA DisMAP Data Retrieval Package
+# dismapr: NOAA DisMAP data retrieval R package
 R package that provides functions to easily interact with NOAA's DisMAP (Distribution Mapping and Analysis Portal) APIs
 
 ## Overview
