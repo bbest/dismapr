@@ -1,9 +1,13 @@
 # dismapr: NOAA DisMAP Data Retrieval Package
-R package that provides functions to easily interact with NOAA's Distribution Mapping and Analysis Portal (DisMAP) APIs
+R package that provides functions to easily interact with NOAA's DisMAP (Distribution Mapping and Analysis Portal) APIs
 
 ## Overview
 
-DisMapR is an R package that provides functions to easily interact with NOAA's Distribution Mapping and Analysis Portal (DisMAP) APIs. This package allows users to:
+DisMapR is an R package that provides functions to easily interact with NOAA's NOAA's [DisMAP - Distribution Mapping and Analysis Portal](https://apps-st.fisheries.noaa.gov/dismap/) APIs listed here:
+
+- [NOAA Distribution Mapping and Analysis Portal (DisMAP) | InPort](https://www.fisheries.noaa.gov/inport/item/66799)
+
+This package allows users to:
 
 1. Download species indicators data (Center of Gravity, depth metrics, etc.)
 2. Access and download interpolated biomass raster layers
@@ -13,7 +17,11 @@ DisMapR is an R package that provides functions to easily interact with NOAA's D
 ## Installation
 
 ```r
-# Install from GitHub
+# install required R packages
+install.packages("RcppSimdJson")
+install.packages("arcgis"", repos = "https://r-arcgis.r-universe.dev")
+
+# install dismapr R package from Github
 devtools::install_github("bbest/dismapr")
 ```
 

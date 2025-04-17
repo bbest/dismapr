@@ -7,11 +7,17 @@
 <url><loc>https://bbest.github.io/dismapr/authors.html</loc></url>
 <url><loc>https://bbest.github.io/dismapr/index.html</loc></url>
 <url><loc>https://bbest.github.io/dismapr/news/index.html</loc></url>
+<url><loc>https://bbest.github.io/dismapr/reference/dm_regions.html</loc></url>
 <url><loc>https://bbest.github.io/dismapr/reference/download_dismap_raster.html</loc></url>
 <url><loc>https://bbest.github.io/dismapr/reference/download_dismap_series.html</loc></url>
 <url><loc>https://bbest.github.io/dismapr/reference/get_dismap_indicators.html</loc></url>
 <url><loc>https://bbest.github.io/dismapr/reference/get_dismap_slices.html</loc></url>
 <url><loc>https://bbest.github.io/dismapr/reference/get_dismap_urls.html</loc></url>
+<url><loc>https://bbest.github.io/dismapr/reference/get_dm_dataset_layers.html</loc></url>
+<url><loc>https://bbest.github.io/dismapr/reference/get_dm_dataset_species_years.html</loc></url>
+<url><loc>https://bbest.github.io/dismapr/reference/get_dm_indicators.html</loc></url>
+<url><loc>https://bbest.github.io/dismapr/reference/get_dm_raster.html</loc></url>
+<url><loc>https://bbest.github.io/dismapr/reference/get_dm_survey_locations.html</loc></url>
 <url><loc>https://bbest.github.io/dismapr/reference/get_survey_locations.html</loc></url>
 <url><loc>https://bbest.github.io/dismapr/reference/index.html</loc></url>
 <url><loc>https://bbest.github.io/dismapr/reference/list_dismap_regions.html</loc></url>

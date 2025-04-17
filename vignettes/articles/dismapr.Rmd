@@ -11,22 +11,18 @@ knitr::opts_chunk$set(
 ```
 
 Example script demonstrating how to use the dismapr package for retrieving
-interpolated depth-weighted biomass data from NOAA's DisMAP.
+interpolated distance-weighted biomass data from NOAA's DisMAP.
 
 ```{r setup}
-# Load required packages
-library(arcgis)
-library(dismapr) # source(here::here("R/dismapr.R")) # devtools::load_all() # devtools::install_local()
+library(dismapr) 
+# devtools::load_all() 
+# devtools::install_local(force = T)
 library(dplyr)
 library(DT)
 library(ggplot2)
-library(glue)
 library(here)
-library(httr2)
-library(jsonlite)
-library(purrr)
+library(mapview)
 library(sf)
-library(terra)
 ```
 
 ## 1. Indicators
@@ -34,22 +30,26 @@ library(terra)
 Example 1: Get indicators data for American Lobster in Northeast US Spring
 
 ```{r}
-tbl_lobster_indicators <- get_dismap_indicators(
+tbl_lobster_indicators <- get_dm_indicators(
   common_name = "American lobster", 
   region      = "Northeast US",
   season      = "Spring")
 tbl_lobster_indicators
 
-# Plot Center of Gravity changes over time
+# plot center of gravity changes over time
 ggplot(data = tbl_lobster_indicators) +
   geom_point(aes(
     x     = center_of_gravity_longitude, 
     y     = center_of_gravity_latitude, 
     color = year)) +
+  labs(
+    x     = "Longitude", 
+    y     = "Latitude", 
+    title = "American Lobster Center of Gravity") +
   theme_classic() +
-  labs(y = "Latitude", x = "Longitude", title = "American Lobster Center of Gravity") +
-  theme(panel.border = element_rect(colour = "black", fill = NA, linewidth = 1)) +
-  coord_quickmap(xlim = c(-80, -65), ylim = c(33, 45))
+  theme(
+    panel.border = element_rect(
+      colour = "black", fill = NA, linewidth = 1))
 ```
 
 ## 2. BioMass Rasters
@@ -57,81 +57,58 @@ ggplot(data = tbl_lobster_indicators) +
 Example 2: Download interpolated biomass rasters for Summer Flounder in NEUS Spring
 
 ```{r}
-# Set up parameters for downloading
+# show table of dataset_codes for available regions and seasons
+dm_regions |> 
+  st_drop_geometry() |>
+  datatable()
+
+# show map of dataset_codes
+# mapView(dm_regions, zcol = "dataset_code") # too big for html
+ggplot() +
+  geom_sf(
+    data = dm_regions, 
+    aes(color = dataset_code)) +
+  theme_minimal() +
+  labs(title = "NOAA DisMAP dataset_code (regions and seasons)") +
+  theme(
+    panel.border = element_rect(
+      colour = "black", fill = NA, linewidth = 1))
+```
+
+```{r}
+# pick the Northeast US Spring dataset
+dataset_code <- "NEUS_SPR"
+
+# show list of available region_seasons (where season may be optional)
+get_dm_dataset_layers(dataset_code)
+
+# pick the summer flounder species
 species_scientific <- "Paralichthys dentatus"
 species_common     <- "SummerFlounder"
-region_season      <- "NEUS_SPR"
 
-# TODO: setup below as function
-base_url <- "https://maps.fisheries.noaa.gov/image/rest/services/DisMAP"
-img_url  <- glue("{base_url}/{region_season}_IDW_CURRENT/ImageServer")
+# show list of available years
+get_dm_dataset_species_years(dataset_code, species_scientific)
 
-lst_slices <- request(base_url) |> 
-  req_url_path_append(glue("{region_season}_IDW_CURRENT/ImageServer/slices")) |> 
-  req_url_query(
-    multidimensionalDefinition = glue("[{{variableName: '{species_scientific}'}}]"),
-    f = "json") |> 
-  req_perform() |>
-  resp_body_json() |> 
-  pluck("slices")
+# pick a set of years
+years <- 2015:2019
 
-tbl_slices <- tibble(
-  sliceId       = map_int(lst_slices, "sliceId"),
-  dimensionName = map_chr(lst_slices, \(x) x[["multidimensionalDefinition"]][[1]][["dimensionName"]]),
-  value         = map_dbl(lst_slices, \(x) x[["multidimensionalDefinition"]][[1]][["values"]][[1]])) |> 
-  arrange(dimensionName, value)
-
-if (all(tbl_slices$dimensionName == "StdTime")){
-  tbl_slices <- tbl_slices |> 
-    mutate(
-      dtime = from_esri_date(value),
-      year  = lubridate::year(dtime))
-  
-  # ensure no duplicate years
-  # (otherwise dtime varying by something other than year)
-  stopifnot(
-    tbl_slices |>
-      group_by(year) |>
-      summarize(n = n()) |>
-      filter(n > 1) |> 
-      nrow() == 0)
-}
-
-# Download just a few years for demonstration
-years_to_download <- 2015:2019
-slice_ids <- tbl_slices |> 
-  filter(year %in% years_to_download) |> 
-  pull(sliceId)
-
-# Create directory for downloads
+# create directory for downloads
 output_dir <- here("inst/test")
-dir.create(output_dir, showWarnings = FALSE)
+dir.create(output_dir, showWarnings = F, recursive = T)
 
-# Download each raster
-raster_files <- character(length(slice_ids))
-for (i in seq_along(slice_ids)) { # i = 1
-  slice_id <- slice_ids[i]
-  yr       <- tbl_slices |> 
-    filter(sliceId == slice_id) |> 
-    pull(year)
-  # file_name <- paste0(species_common, "_", year, "_", slice_id, ".grd")
-  # file_path <- file.path(output_dir, file_name)
-  # tif <- glue("{output_dir}/{species_common}_yr{yr}_sl{slice_id}.tif")
-  tif <- glue("{output_dir}/{region_season}_IDW_{species_common}_{yr}.tif")
-  message(glue("Downloading raster {basename(tif)}"))
-  
-  raster_files[i] <- tif
-  
-  r <- download_dismap_raster(
-    slice_id  = slice_id,
-    img_url   = img_url,
-    out_tif   = tif,
-    verbose   = F,
-    overwrite = F)
-  # plet(r)
+# download each raster
+for (yr in years) { # yr = years[1]
+  tif <- glue("{output_dir}/{dataset_code}_IDW_{species_common}_{yr}.tif")
+
+  r <- get_dm_raster(
+    dataset_code,
+    species_scientific,
+    yr,
+    tif)
 }
 
-r <- rast(glue("{output_dir}/{region_season}_IDW_{species_common}_{yr}.tif"))
+yr <- 2015
+r <- rast(glue("{output_dir}/{dataset_code}_IDW_{species_common}_{yr}.tif"))
 r
 ```
 
@@ -148,7 +125,7 @@ plet(
   r, 
   tiles = "Esri.OceanBasemap",
   main  = glue(
-    "{region_season}
+    "{dataset_code}
     {species_common}
     {yr}: {names(r)}"))
 ```
@@ -162,63 +139,43 @@ ggplot() +
     aes(x = x, y = y, fill = wtcpue)) +
   scale_fill_viridis_c() +
   coord_fixed() +
-  labs(title = glue("{region_season} {species_common}, {yr}"))
+  labs(title = glue("{dataset_code} {species_common}, {yr}"))
 ```
 
 ## 3. Survey Locations
 
-Now let's use the [arcgis](https://developers.arcgis.com/r-bridge/installation/) R packages, which you can install with the following:
-
 ```{r}
-#| eval: FALSE
-install.packages("arcgis", repos = "https://r-arcgis.r-universe.dev")
-```
+dataset_code <- "NEUS_SPR"
+year <- 2015
 
-```{r}
-url_survey <- "https://services2.arcgis.com/C8EMgrsFcRFL6LrL/ArcGIS/rest/services/DisMAP_Survey_Info_CURRENT/FeatureServer/2"
-lyr_survey <- arc_open(url_survey)
-lyr_survey
-tbl_survey <- arc_select(lyr_survey) |> 
-  as_tibble()
-datatable(tbl_survey)
+pts_yr <- get_dm_survey_locations(dataset_code, where = glue("Year = {year}"))
+# show a sample of first 100 rows
+head(pts_yr, 100) |> 
+  datatable()
 
-region_season <- "NEUS_SPR"
-year          <- 2015
+# summarize by biomass
+pts_yr_sum <- pts_yr |>
+  group_by(Longitude, Latitude) |>
+  summarize(
+    wtcpue = sum(WTCPUE), .groups = "drop")
 
-url_surveypts <- glue("https://services2.arcgis.com/C8EMgrsFcRFL6LrL/arcgis/rest/services/{region_season}_Sample_Locations_CURRENT/FeatureServer")
-fs <- arc_open(url_surveypts)
-lyr <- get_layer(fs, 1)
-
-# pts <- arc_read(lyr$url)
-# nrow(pts)  # 592,012
-f <- arc_open(lyr$url)
-pts_yr <- arc_select(
-  lyr, 
-  where = glue("Year = {year}"))
-# nrow(pts_yr)  # 15,228
-datatable(pts_yr)
-
-# Plot survey locations
+# plot, static
 ggplot() +
-  geom_sf(data = pts_yr) +
+  geom_sf(data = pts_yr_sum, aes(color = wtcpue)) +
   theme_minimal() +
-  labs(title = "Northeast US Spring Survey Locations, 2015")
-```
+  labs(title = glue("Northeast US Spring Survey Locations, {year}"))
 
+# plot, dynamic
+mapView(
+  pts_yr_sum, zcol = "wtcpue", 
+  layer.name = glue("Northeast US Spring Survey Locations, {year}"),
+  map.types = c("Esri.OceanBasemap", "OpenStreetMap"))
+```
 
 TODO:
 
 - [ ] animated GIF
-- [ ] add more examples
 - [ ] Use [jsonld](https://docs.ropensci.org/jsonld/) to extract from InPort, eg:
   - [Survey Catch-per-unit-effort CURRENT | InPort](https://www.fisheries.noaa.gov/inport/item/69743)
-- [ ] explore `arcgislayers::arc_raster()` for `get_dismap_raster()`
-- [ ] explore more in `arcgis` R libraries
-  - [Install and set up | ArcGIS R-Bridge | Esri Developer](https://developers.arcgis.com/r-bridge/installation/)
-  - [Overview | ArcGIS R-Bridge | Esri Developer](https://developers.arcgis.com/r-bridge/layers/overview/)
-  - [Reading Feature Services | ArcGIS R-Bridge | Esri Developer](https://developers.arcgis.com/r-bridge/layers/read-layers/)
-  - [Reading Feature Services | ArcGIS R-Bridge | Esri Developer](https://developers.arcgis.com/r-bridge/layers/read-layers/)
-  - [Query a Feature Service | API Reference | ArcGIS R-Bridge | Esri Developer](https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_select.html)
-  - [Read from an Image Server | API Reference | ArcGIS R-Bridge | Esri Developer](https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html)
-  - [Install and set up | ArcGIS R-Bridge | Esri Developer](https://developers.arcgis.com/r-bridge/installation/)
-- [ ] add dependency to https://docs.r-universe.dev/install/dependencies.html#can-a-cran-package-take-on-a-dependency-from-r-universe
+- [ ] explore [`arcgislayers::arc_raster()`](https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html) for `get_dm_raster()`
+- [ ] consider `get_dm_raster_series()` to combine layers years and/or species
