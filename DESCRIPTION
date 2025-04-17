@@ -12,7 +12,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Config/Needs/website: rmarkdown
 URL: https://bbest.github.io/dismapr/, https://github.com/bbest/dismapr
-BugReports: https://github.com/github.com/bbest/dismapr/issues
+BugReports: https://github.com/bbest/dismapr/issues
 Depends: 
     R (>= 3.5)
 LazyData: true

@@ -19,32 +19,11 @@ This package allows users to:
 ```r
 # install required R packages
 install.packages("RcppSimdJson")
-install.packages("arcgis"", repos = "https://r-arcgis.r-universe.dev")
+install.packages("arcgis", repos = "https://r-arcgis.r-universe.dev")
 
 # install dismapr R package from Github
 devtools::install_github("bbest/dismapr")
 ```
-
-## Required Packages
-
-DisMapR depends on the following packages:
-
-- dplyr
-- httr2
-- jsonlite
-- ggplot2
-- sf
-- terra
-
-For creating animated visualizations:
-
-- gganimate
-- gifski
-
-For color palettes:
-
-- cmocean (recommended)
-- viridis (alternative)
 
 ## Basic Usage
 
@@ -71,17 +50,18 @@ DisMAP currently includes data for the following regions:
 ## Important Notes
 
 - URLs for the DisMAP services may change as new data releases become available. Check the [DisMAP InPort page](https://www.fisheries.noaa.gov/inport/item/66799) for the most up-to-date URLs.
-- No data values in rasters are typically set to 3.4e+38 and should be treated as NA.
-- For better visualization, biomass values are often cube-root transformed.
-
 
 ## Developer Notes
 
 The package is currently in development and may not include all features or be fully tested.
 
+Common tasks for package development include:
+
 ```r
+# update documentation after modifying any R/*.R files
 devtools::document()
 
+# build website
 pkgdown::build_site()
 ```
 
