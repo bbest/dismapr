@@ -45,6 +45,7 @@ See [Getting Started](articles/dismapr.html)
 ## Available Regions
 
 DisMAP currently includes data for the following regions:
+
 - Aleutian Islands
 - Eastern Bering Sea
 - Gulf of Alaska
