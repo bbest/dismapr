@@ -1,4 +1,4 @@
-#' DisMAP datasets, given by region and optionally season
+#' DisMAP datasets: region and optional season
 #'
 #' A multiline simple feature boundary of regions and seasons used in DisMAP.
 #'
