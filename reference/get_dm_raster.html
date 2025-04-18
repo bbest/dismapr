@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dismapr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,7 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_dm_raster</span><span class="op">(</span></span>
 <span>  <span class="va">dataset_code</span>,</span>
-<span>  <span class="va">species_scientific</span>,</span>
+<span>  <span class="va">layer</span>,</span>
 <span>  <span class="va">year</span>,</span>
 <span>  out_tif <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  out_sr <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -62,12 +62,12 @@
 <dd><p>The DisMAP dataset code (e.g., "AI", "EBS", "GOA"), per <code>dm_regions$dataset_code</code></p></dd>
 
 
-<dt id="arg-species-scientific">species_scientific<a class="anchor" aria-label="anchor" href="#arg-species-scientific"></a></dt>
-<dd><p>The scientific name of the species, per <code>get_dm_dataset_layers(dataset_code)</code></p></dd>
+<dt id="arg-layer">layer<a class="anchor" aria-label="anchor" href="#arg-layer"></a></dt>
+<dd><p>The layer in the dataset, typically the scientific name of the species or "Species Richness", per <code>get_dm_dataset_layers(dataset_code)</code></p></dd>
 
 
 <dt id="arg-year">year<a class="anchor" aria-label="anchor" href="#arg-year"></a></dt>
-<dd><p>The year of the slice to download, per <code>get_dm_dataset_species_years(dataset_code, species_scientific)</code></p></dd>
+<dd><p>The year of the slice to download, per <code>get_dm_dataset_layer_years(dataset_code, layer)</code></p></dd>
 
 
 <dt id="arg-out-tif">out_tif<a class="anchor" aria-label="anchor" href="#arg-out-tif"></a></dt>
