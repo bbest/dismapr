@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dismapr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,19 @@
       <small>Source: <a href="https://github.com/bbest/dismapr/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="dismapr-040">dismapr 0.4.0<a class="anchor" aria-label="anchor" href="#dismapr-040"></a></h2>
+<ul><li>Added concepts to functions for Reference section: Indicators, Rasters, Surveys, Data.</li>
+<li>Broke up functions by concept into seperate reference R files.</li>
+<li>Changed <code>dm_regions</code> to <code>dm_datasets</code> to enforce hierarchical consistency with DisMAP Rasters:
+<ul><li>
+<strong>datasets</strong>: region and possibly seasons</li>
+<li>
+<strong>layers</strong>: scientific species name or “Species Richness”</li>
+<li>
+<strong>years</strong>: years of data available</li>
+</ul></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="dismapr-030">dismapr 0.3.0<a class="anchor" aria-label="anchor" href="#dismapr-030"></a></h2>
 <ul><li>Made consistent “species” to “layers”: <code>get_dm_dataset_species_years()</code> -&gt; <code><a href="../reference/get_dm_dataset_layer_years.html">get_dm_dataset_layer_years()</a></code>.</li>

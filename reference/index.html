@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dismapr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,9 +33,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="indicators">Indicators<a class="anchor" aria-label="anchor" href="#indicators"></a></h2>
 
-
+      <div class="section-desc"><p>Indicators of shifting distributions</p></div>
 
 
     </div><div class="section level2">
@@ -45,11 +45,22 @@
 
       <dl><dt>
 
-          <code><a href="dm_regions.html">dm_regions</a></code>
+          <code><a href="get_dm_indicators.html">get_dm_indicators()</a></code>
 
         </dt>
-        <dd>DisMAP regions, seasons and dataset_code</dd>
-      </dl><dl><dt>
+        <dd>Get DisMAP indicators table, possibly filtered by field = value pairs</dd>
+      </dl></div><div class="section level2">
+      <h2 id="rasters">Rasters<a class="anchor" aria-label="anchor" href="#rasters"></a></h2>
+
+      <div class="section-desc"><p>Rasters of distributional data</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="get_dm_dataset_layer_years.html">get_dm_dataset_layer_years()</a></code>
 
@@ -60,27 +71,62 @@
           <code><a href="get_dm_dataset_layers.html">get_dm_dataset_layers()</a></code>
 
         </dt>
-        <dd>Get DisMAP layer names, given dataset_code</dd>
-      </dl><dl><dt>
-
-          <code><a href="get_dm_indicators.html">get_dm_indicators()</a></code>
-
-        </dt>
-        <dd>Get DisMAP indicators table</dd>
+        <dd>Get DisMAP layers (scientific species name or "Species Richness"), given dataset</dd>
       </dl><dl><dt>
 
           <code><a href="get_dm_raster.html">get_dm_raster()</a></code>
 
         </dt>
-        <dd>Get DisMAP raster</dd>
-      </dl><dl><dt>
+        <dd>Get DisMAP raster, given dataset, layer and year</dd>
+      </dl></div><div class="section level2">
+      <h2 id="surveys">Surveys<a class="anchor" aria-label="anchor" href="#surveys"></a></h2>
+
+      <div class="section-desc"><p>Survey locations</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="get_dm_survey_locations.html">get_dm_survey_locations()</a></code>
 
         </dt>
-        <dd>Get DisMAP survey locations</dd>
-      </dl></div>
-  </main></div>
+        <dd>Get DisMAP survey locations, possibly filtered by a where clause</dd>
+      </dl></div><div class="section level2">
+      <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a></h2>
+
+      <div class="section-desc"><p>Reference datasets</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="dm_datasets.html">dm_datasets</a></code>
+
+        </dt>
+        <dd>DisMAP datasets, given by region and optionally season</dd>
+      </dl></div><div class="section level2">
+      <h2 id="other">Other<a class="anchor" aria-label="anchor" href="#other"></a></h2>
+
+      <div class="section-desc"><p>Other functions (not defined by concepts above)</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+
+    </div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
