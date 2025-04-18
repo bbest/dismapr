@@ -8,15 +8,15 @@ Convert this script into a usable R function and library for retrieving IDW rast
 
 I'll convert the provided script into a more organized and reusable R library for retrieving interpolated depth-weighted biomass rasters from NOAA's Distribution Mapping and Analysis Portal (DisMAP). Let me create an artifact with the R package structure.
 
-- <./dismapr.r>
+- [dismapr.r](./dismapr.r)
 
 Now I'll create an example script showing how to use the functions from the package I've created:
 
-- <./example_script.r>
+- [example_script.r](./example_script.r)
 
 Let me also create a README file to explain how to use the package:
 
-- <./readme.md>
+- [readme.md](./readme.md)
 
 ## DisMAP Data Retrieval Package
 
