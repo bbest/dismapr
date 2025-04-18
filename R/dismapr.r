@@ -164,7 +164,7 @@ get_dm_dataset_layer_year_slices <- function(dataset_code, layer){
 #' @export
 #' @importFrom dplyr pull
 #' @examples
-#' get_dm_dataset_layer_years("AI", "Paralichthys dentatus")
+#' get_dm_dataset_layer_years("NEUS_SPR", "Paralichthys dentatus")
 get_dm_dataset_layer_years <- function(dataset_code, layer){
   get_dm_dataset_layer_year_slices(dataset_code, layer) |>
     dplyr::pull(year)

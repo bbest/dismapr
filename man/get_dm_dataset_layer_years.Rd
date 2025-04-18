@@ -18,5 +18,5 @@ A vector of years available for the layer in the dataset
 Get a list of years for a given species in a DisMAP dataset
 }
 \examples{
-get_dm_dataset_layer_years("AI", "Paralichthys dentatus")
+get_dm_dataset_layer_years("NEUS_SPR", "Paralichthys dentatus")
 }
