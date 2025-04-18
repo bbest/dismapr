@@ -1,6 +1,6 @@
 Package: dismapr
 Title: NOAA's Distribution Mapping and Analysis Portal (DisMAP) data retrieval
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(
     person("Ben", "Best", , "ben@ecoquants.com", role = c("aut", "cre")),
     person("Melissa", "Karp", , "melissa.karp@noaa.gov", role = c("aut"))

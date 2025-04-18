@@ -1,3 +1,7 @@
+# dismapr 0.3.0
+
+* Made consistent "species" to "layers": `get_dm_dataset_species_years()` -> `get_dm_dataset_layer_years()`.
+
 # dismapr 0.2.0
 
 * Cleaned up functions and applied `dm_` prefix for DisMAP

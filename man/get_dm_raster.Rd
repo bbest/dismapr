@@ -6,7 +6,7 @@
 \usage{
 get_dm_raster(
   dataset_code,
-  species_scientific,
+  layer,
   year,
   out_tif = NULL,
   out_sr = NULL,
@@ -20,9 +20,9 @@ get_dm_raster(
 \arguments{
 \item{dataset_code}{The DisMAP dataset code (e.g., "AI", "EBS", "GOA"), per \code{dm_regions$dataset_code}}
 
-\item{species_scientific}{The scientific name of the species, per \code{get_dm_dataset_layers(dataset_code)}}
+\item{layer}{The layer in the dataset, typically the scientific name of the species or "Species Richness", per \code{get_dm_dataset_layers(dataset_code)}}
 
-\item{year}{The year of the slice to download, per \code{get_dm_dataset_species_years(dataset_code, species_scientific)}}
+\item{year}{The year of the slice to download, per \code{get_dm_dataset_layer_years(dataset_code, layer)}}
 
 \item{out_tif}{optional output GeoTIFF path to write raster}
 

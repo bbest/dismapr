@@ -83,12 +83,12 @@ dataset_code <- "NEUS_SPR"
 # show list of available region_seasons (where season may be optional)
 get_dm_dataset_layers(dataset_code)
 
-# pick the summer flounder species
-species_scientific <- "Paralichthys dentatus"
-species_common     <- "SummerFlounder"
+# pick the layer (i.e., species): summer flounder (Paralichthys dentatus)
+layer     <- "Paralichthys dentatus"
+sp_common <- "SummerFlounder"
 
 # show list of available years
-get_dm_dataset_species_years(dataset_code, species_scientific)
+get_dm_dataset_layer_years(dataset_code, layer)
 
 # pick a set of years
 years <- 2015:2019
@@ -99,17 +99,17 @@ dir.create(output_dir, showWarnings = F, recursive = T)
 
 # download each raster
 for (yr in years) { # yr = years[1]
-  tif <- glue("{output_dir}/{dataset_code}_IDW_{species_common}_{yr}.tif")
+  tif <- glue("{output_dir}/{dataset_code}_IDW_{sp_common}_{yr}.tif")
 
   r <- get_dm_raster(
     dataset_code,
-    species_scientific,
+    layer,
     yr,
     tif)
 }
 
 yr <- 2015
-r <- rast(glue("{output_dir}/{dataset_code}_IDW_{species_common}_{yr}.tif"))
+r <- rast(glue("{output_dir}/{dataset_code}_IDW_{sp_common}_{yr}.tif"))
 r
 ```
 
@@ -127,7 +127,7 @@ plet(
   tiles = "Esri.OceanBasemap",
   main  = glue(
     "{dataset_code}
-    {species_common}
+    {sp_common}
     {yr}: {names(r)}"))
 ```
 
@@ -140,7 +140,7 @@ ggplot() +
     aes(x = x, y = y, fill = wtcpue)) +
   scale_fill_viridis_c() +
   coord_fixed() +
-  labs(title = glue("{dataset_code} {species_common}, {yr}"))
+  labs(title = glue("{dataset_code} {sp_common}, {yr}"))
 ```
 
 ## 3. Survey Locations

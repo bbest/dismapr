@@ -2,7 +2,7 @@
 % Please edit documentation in R/dismapr.R
 \name{get_dm_dataset_layers}
 \alias{get_dm_dataset_layers}
-\title{Get DisMAP layer names, given region season}
+\title{Get DisMAP layer names, given dataset_code}
 \usage{
 get_dm_dataset_layers(dataset_code)
 }

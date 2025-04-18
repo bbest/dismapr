@@ -91,7 +91,7 @@ get_dm_indicators <- function(
   return(d)
 }
 
-#' @title Get DisMAP layer names, given region season
+#' @title Get DisMAP layer names, given dataset_code
 #' @description Get a list of available layers for a given region and season
 #' @param datset_code The region (and season) code, per available `dataset_code` in `dm_regions`
 #' @return A character vector of layer names, usually species scientific name or "Species Richness"
@@ -115,7 +115,7 @@ get_dm_dataset_layers <- function(dataset_code){
     sort()
 }
 
-get_dm_dataset_species_year_slices <- function(dataset_code, species_scientific){
+get_dm_dataset_layer_year_slices <- function(dataset_code, layer){
   # internal function so user doesn't have to worry about sliceId, only needs year
 
   # TODO: setup below as function
@@ -124,7 +124,7 @@ get_dm_dataset_species_year_slices <- function(dataset_code, species_scientific)
   lst_slices <- httr2::request(img_url) |>
     httr2::req_url_path_append("slices") |>
     httr2::req_url_query(
-      multidimensionalDefinition = glue("[{{variableName: '{species_scientific}'}}]"),
+      multidimensionalDefinition = glue("[{{variableName: '{layer}'}}]"),
       f = "json") |>
     httr2::req_perform() |>
     httr2::resp_body_json() |>
@@ -156,25 +156,25 @@ get_dm_dataset_species_year_slices <- function(dataset_code, species_scientific)
     dplyr::select(slice_id = sliceId, year)
 }
 
-#' @title Get DisMAP years for a species
+#' @title Get DisMAP years for a dataset layer
 #' @description Get a list of years for a given species in a DisMAP dataset
 #' @param dataset_code The DisMAP dataset code (e.g., "AI", "EBS", "GOA"), per `dm_regions$dataset_code`
-#' @param species_scientific The scientific name of the species, per `get_dm_dataset_layers(dataset_code)`
-#' @return A vector of years available for the species in the dataset
+#' @param layer The layer in the dataset, typically the scientific name of the species or "Species Richness", per `get_dm_dataset_layers(dataset_code)`
+#' @return A vector of years available for the layer in the dataset
 #' @export
 #' @importFrom dplyr pull
 #' @examples
-#' get_dm_dataset_species_years("AI", "Paralichthys dentatus")
-get_dm_dataset_species_years <- function(dataset_code, species_scientific){
-  get_dm_dataset_species_year_slices(dataset_code, species_scientific) |>
+#' get_dm_dataset_layer_years("AI", "Paralichthys dentatus")
+get_dm_dataset_layer_years <- function(dataset_code, layer){
+  get_dm_dataset_layer_year_slices(dataset_code, layer) |>
     dplyr::pull(year)
 }
 
 #' @title Get DisMAP raster
 #' @description Download a single interpolated biomass raster by slice ID
 #' @param dataset_code The DisMAP dataset code (e.g., "AI", "EBS", "GOA"), per `dm_regions$dataset_code`
-#' @param species_scientific The scientific name of the species, per `get_dm_dataset_layers(dataset_code)`
-#' @param year The year of the slice to download, per `get_dm_dataset_species_years(dataset_code, species_scientific)`
+#' @param layer The layer in the dataset, typically the scientific name of the species or "Species Richness", per `get_dm_dataset_layers(dataset_code)`
+#' @param year The year of the slice to download, per `get_dm_dataset_layer_years(dataset_code, layer)`
 #' @param out_tif optional output GeoTIFF path to write raster
 #' @param out_sr optional output spatial reference for output raster; defaults to native spatial reference
 #' @param transform Function to transform raster values (default is cube root): function(x) x^(1/3)
@@ -196,7 +196,7 @@ get_dm_dataset_species_years <- function(dataset_code, species_scientific){
 #' @export
 get_dm_raster <- function(
     dataset_code,
-    species_scientific,
+    layer,
     year,
     out_tif   = NULL,
     out_sr    = NULL,
@@ -222,15 +222,15 @@ get_dm_raster <- function(
   if (length(dataset_code) != 1)
     stop("dataset_code must be a single value")
 
-  # check for valid species_scientific
+  # check for valid layer
   lyrs <- get_dm_dataset_layers(dataset_code)
-  if (!species_scientific %in% lyrs)
-    stop("species_scientific must be one of the dataset's available layers: ", paste(lyrs, collapse = ", "))
-  if (length(species_scientific) != 1)
-    stop("species_scientific must be a single value")
+  if (!layer %in% lyrs)
+    stop("layer must be one of the dataset's available layers: ", paste(lyrs, collapse = ", "))
+  if (length(layer) != 1)
+    stop("layer must be a single value")
 
   # check for valid year
-  d_yr_slices <- get_dm_dataset_species_year_slices(dataset_code, species_scientific)
+  d_yr_slices <- get_dm_dataset_layer_year_slices(dataset_code, layer)
   yrs <- d_yr_slices$year
   if (!year %in% yrs)
     stop("year must be one of the dataset's available years: ", paste(yrs, collapse = ", "))
