@@ -8,6 +8,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   message = FALSE)
+
+# devtools::load_all() 
+# devtools::install_local(force = T)
 ```
 
 Example script demonstrating how to use the dismapr package for retrieving
@@ -15,8 +18,6 @@ interpolated distance-weighted biomass data from NOAA's DisMAP.
 
 ```{r setup}
 library(dismapr) 
-# devtools::load_all() 
-# devtools::install_local(force = T)
 library(dplyr)
 library(DT)
 library(ggplot2)
