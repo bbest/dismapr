@@ -4,11 +4,11 @@ template:
 
 reference:
 - title: Indicators
-  desc: Indicators of shifting distributions
+  desc: Indicators of distributional shifts
   contents:
   - has_concept("indicators")
 - title: Rasters
-  desc: Rasters of distributional data
+  desc: Rasters of biomass distribution
   contents:
   - has_concept("rasters")
 - title: Surveys
@@ -16,7 +16,7 @@ reference:
   contents:
   - has_concept("surveys")
 - title: Data
-  desc: Reference datasets
+  desc: Datasets used in the package
   contents:
   - has_concept("data")
 - title: Other
