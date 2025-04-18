@@ -68,6 +68,18 @@ Note that the documentation website <https://bbest.github.io/dismapr> is rendere
 
 - [ ] Consider `get_dm_raster_series()` to combine layers years and/or species
 - [ ] Explore [`arcgislayers::arc_raster()`](https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html) for `get_dm_raster()`
+- [ ] Add visualization functions for rasters, indicators and surveys with:
+  - static:
+    - plot: [`ggplot2`](https://ggplot2.tidyverse.org/)
+    - map: 
+      - vector: [visualise sf objects](https://ggplot2.tidyverse.org/reference/ggsf.html) with ggplot2
+      - raster: [`geom_raster()`](https://ggplot2.tidyverse.org/reference/geom_tile.html) with ggplot2
+      - basemap:
+        - [`rnaturalearth`](https://ropensci.github.io/rnaturalearth/)
+        - [`basemaps`](https://jakob.schwalb-willmann.de/basemaps/)
+  - interactive:
+    - plot: [`plotly::ggplotly()`](https://plotly.com/ggplot2/getting-started/)
+    - map: [`leaflet`](https://rstudio.github.io/leaflet/)
 - [ ] Use [jsonld](https://docs.ropensci.org/jsonld/) to extract from InPort, eg:
   - [Survey Catch-per-unit-effort CURRENT | InPort](https://www.fisheries.noaa.gov/inport/item/69743)
 - [ ] Generate animated GIFs, per Claude.ai suggestion in [example_script.r](https://github.com/bbest/dismapr/blob/9da16bab6a3361c97d61384de08f208aab3fe065/inst/claude.ai/example_script.r#L101-L119)
