@@ -60,10 +60,9 @@
 </ul>
 <p>This package allows users to:</p>
 <ol style="list-style-type: decimal">
-<li>Download species indicators data (Center of Gravity, depth metrics, etc.)</li>
+<li>Download species indicators data, overall shifts in location and depth over time</li>
 <li>Access and download interpolated biomass raster layers</li>
 <li>Retrieve survey location points</li>
-<li>Create visualizations of species distributions</li>
 </ol>
 </div>
 <div class="section level2">
@@ -78,49 +77,67 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bbest/dismapr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="basic-usage">Basic Usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>See <a href="articles/dismapr.html">Getting Started</a></p>
 </div>
 <div class="section level2">
-<h2 id="important-notes">Important Notes<a class="anchor" aria-label="anchor" href="#important-notes"></a>
+<h2 id="disclaimers">Disclaimers<a class="anchor" aria-label="anchor" href="#disclaimers"></a>
 </h2>
-<ul>
-<li>URLs for the DisMAP services may change as new data releases become available. Check the <a href="https://www.fisheries.noaa.gov/inport/item/66799" class="external-link">DisMAP InPort page</a> for the most up-to-date URLs.</li>
-</ul>
+<p>URLs for the DisMAP services may change as new data releases become available. Check the <a href="https://www.fisheries.noaa.gov/inport/item/66799" class="external-link">DisMAP InPort page</a> for the most up-to-date URLs.</p>
 </div>
 <div class="section level2">
-<h2 id="developer-notes">Developer Notes<a class="anchor" aria-label="anchor" href="#developer-notes"></a>
+<h2 id="developer">Developer<a class="anchor" aria-label="anchor" href="#developer"></a>
 </h2>
 <p>The package is currently in development and may not include all features or be fully tested.</p>
+<div class="section level3">
+<h3 id="history">History<a class="anchor" aria-label="anchor" href="#history"></a>
+</h3>
+<p>The initial script <a href="https://github.com/bbest/dismapr/blob/9da16bab6a3361c97d61384de08f208aab3fe065/inst/DisMAP_Data_Download_API.R" class="external-link">DisMAP_Data_Download_API.R</a> was written by Melissa Karp, adapted by <a href="https://claude.ai/" class="external-link">Claude.ai</a> into an initial R package (see <a href="https://github.com/bbest/dismapr/blob/9da16bab6a3361c97d61384de08f208aab3fe065/inst/claude.ai/chat.md" class="external-link">chat.md</a>), then modified by Ben Best for expanded and working functionality.</p>
+</div>
+<div class="section level3">
+<h3 id="commands">Commands<a class="anchor" aria-label="anchor" href="#commands"></a>
+</h3>
 <p>Common tasks for package development include:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># update documentation after modifying any R/*.R files</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">document</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># build website</span></span>
+<span><span class="co"># preview website</span></span>
 <span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h3>
+<p>Note that the documentation website <a href="https://bbest.github.io/dismapr" class="uri">https://bbest.github.io/dismapr</a> is rendered from source by this Github Action:</p>
+<ul>
+<li>
+<a href="https://github.com/bbest/dismapr/blob/main/.github/workflows/pkgdown.yaml" class="external-link">.github/workflows/pkgdown.yaml</a>
+<ul>
+<li><a href="https://github.com/bbest/dismapr/actions/workflows/pkgdown.yaml" class="external-link">pkgdown.yaml · Workflow runs</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section level3">
 <h3 id="next-steps">Next steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>
 </h3>
-<p>TODO:</p>
 <ul class="task-list">
-<li><label><input type="checkbox">animated GIF</label></li>
+<li><label><input type="checkbox">Consider <code>get_dm_raster_series()</code> to combine layers years and/or species</label></li>
+<li><label><input type="checkbox">Explore <a href="https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html" class="external-link"><code>arcgislayers::arc_raster()</code></a> for <code><a href="reference/get_dm_raster.html">get_dm_raster()</a></code></label></li>
 <li>
 <label><input type="checkbox">Use <a href="https://docs.ropensci.org/jsonld/" class="external-link">jsonld</a> to extract from InPort, eg:</label>
 <ul>
 <li><a href="https://www.fisheries.noaa.gov/inport/item/69743" class="external-link">Survey Catch-per-unit-effort CURRENT | InPort</a></li>
 </ul>
 </li>
-<li><label><input type="checkbox">explore <a href="https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html" class="external-link"><code>arcgislayers::arc_raster()</code></a> for <code><a href="reference/get_dm_raster.html">get_dm_raster()</a></code></label></li>
-<li><label><input type="checkbox">consider <code>get_dm_raster_series()</code> to combine layers years and/or species</label></li>
+<li><label><input type="checkbox">Generate animated GIFs, per Claude.ai suggestion in <a href="https://github.com/bbest/dismapr/blob/9da16bab6a3361c97d61384de08f208aab3fe065/inst/claude.ai/example_script.r#L101-L119" class="external-link">example_script.r</a></label></li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h3>
 <p>Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.</p>
-<p>To contribute to the package, please fork the repository and submit a pull request with your changes.</p>
 </div>
 </div>
 <div class="section level2">
@@ -166,8 +183,8 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Ben Best <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Melissa Karp <br><small class="roles"> Author </small>  </li>
+<li>Ben Best <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2686-0784" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Melissa Karp <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-2404-2937" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
