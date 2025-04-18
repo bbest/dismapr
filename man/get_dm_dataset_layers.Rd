@@ -2,7 +2,7 @@
 % Please edit documentation in R/rasters.R
 \name{get_dm_dataset_layers}
 \alias{get_dm_dataset_layers}
-\title{Get DisMAP layers (scientific species name or "Species Richness"), given dataset}
+\title{Get DisMAP layers (scientific species name or "Species Richness") for a dataset}
 \usage{
 get_dm_dataset_layers(dataset_code)
 }

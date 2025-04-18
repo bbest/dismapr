@@ -2,7 +2,7 @@
 % Please edit documentation in R/rasters.R
 \name{get_dm_raster}
 \alias{get_dm_raster}
-\title{Get DisMAP raster, given dataset, layer and year}
+\title{Get DisMAP raster for dataset layer year}
 \usage{
 get_dm_raster(
   dataset_code,

@@ -1,4 +1,4 @@
-#' @title Get DisMAP layers (scientific species name or "Species Richness"), given dataset
+#' @title Get DisMAP layers (scientific species name or "Species Richness") for a dataset
 #' @description Get a list of available layers for a given region and season
 #' @param datset_code The region (and season) code, per available `dataset_code` in `dm_datasets`
 #' @return A character vector of layer names, usually species scientific name or "Species Richness"
@@ -79,7 +79,7 @@ get_dm_dataset_layer_years <- function(dataset_code, layer){
     dplyr::pull(year)
 }
 
-#' @title Get DisMAP raster, given dataset, layer and year
+#' @title Get DisMAP raster for dataset layer year
 #' @description Download a single interpolated biomass raster by slice ID
 #' @param dataset_code The DisMAP dataset code (e.g., "AI", "EBS", "GOA"), per `dm_datasets$dataset_code`
 #' @param layer The layer in the dataset, typically the scientific name of the species or "Species Richness", per `get_dm_dataset_layers(dataset_code)`

@@ -3,9 +3,9 @@
 * Added concepts to functions for Reference section: Indicators, Rasters, Surveys, Data.
 * Broke up functions by concept into seperate reference R files.
 * Changed `dm_regions` to `dm_datasets` to enforce hierarchical consistency with DisMAP Rasters:
-  - **datasets**: region and possibly seasons
-  - **layers**: scientific species name or "Species Richness"
-  - **years**: years of data available
+  - **dataset**: region and possibly season
+  - **layer**: scientific species name or "Species Richness"
+  - **year**: year
   
 # dismapr 0.3.0
 
