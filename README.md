@@ -64,7 +64,9 @@ Note that the documentation website <https://bbest.github.io/dismapr> is rendere
 - [.github/workflows/pkgdown.yaml](https://github.com/bbest/dismapr/blob/main/.github/workflows/pkgdown.yaml)
   - [pkgdown.yaml · Workflow runs](https://github.com/bbest/dismapr/actions/workflows/pkgdown.yaml)
 
-### Next steps
+### Next
+
+Potential next steps to do:
 
 - [ ] Consider `get_dm_raster_series()` to combine layers years and/or species
 - [ ] Explore [`arcgislayers::arc_raster()`](https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html) for `get_dm_raster()`
