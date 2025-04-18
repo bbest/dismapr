@@ -53,21 +53,21 @@ ggplot(data = tbl_lobster_indicators) +
       colour = "black", fill = NA, linewidth = 1))
 ```
 
-## 2. BioMass Rasters
+## 2. Rasters
 
 Example 2: Download interpolated biomass rasters for Summer Flounder in NEUS Spring
 
 ```{r}
 # show table of dataset_codes for available regions and seasons
-dm_regions |> 
+dm_datasets |> 
   st_drop_geometry() |>
   datatable()
 
 # show map of dataset_codes
-# mapView(dm_regions, zcol = "dataset_code") # too big for html
+# mapView(dm_datasets, zcol = "dataset_code") # too big for html
 ggplot() +
   geom_sf(
-    data = dm_regions, 
+    data = dm_datasets, 
     aes(color = dataset_code)) +
   theme_minimal() +
   labs(title = "NOAA DisMAP dataset_code (regions and seasons)") +
@@ -143,7 +143,7 @@ ggplot() +
   labs(title = glue("{dataset_code} {sp_common}, {yr}"))
 ```
 
-## 3. Survey Locations
+## 3. Surveys
 
 ```{r}
 dataset_code <- "NEUS_SPR"
@@ -173,10 +173,3 @@ mapView(
   map.types = c("Esri.OceanBasemap", "OpenStreetMap"))
 ```
 
-TODO:
-
-- [ ] animated GIF
-- [ ] Use [jsonld](https://docs.ropensci.org/jsonld/) to extract from InPort, eg:
-  - [Survey Catch-per-unit-effort CURRENT | InPort](https://www.fisheries.noaa.gov/inport/item/69743)
-- [ ] explore [`arcgislayers::arc_raster()`](https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html) for `get_dm_raster()`
-- [ ] consider `get_dm_raster_series()` to combine layers years and/or species

@@ -2,3 +2,24 @@ url: https://bbest.github.io/dismapr/
 template:
   bootstrap: 5
 
+reference:
+- title: Indicators
+  desc: Indicators of shifting distributions
+  contents:
+  - has_concept("indicators")
+- title: Rasters
+  desc: Rasters of distributional data
+  contents:
+  - has_concept("rasters")
+- title: Surveys
+  desc: Survey locations
+  contents:
+  - has_concept("surveys")
+- title: Data
+  desc: Reference datasets
+  contents:
+  - has_concept("data")
+- title: Other
+  desc: Other functions (not defined by concepts above)
+  contents:
+  - lacks_concepts(c("indicators", "rasters", "surveys", "data"))

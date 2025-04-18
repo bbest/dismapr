@@ -1,4 +1,5 @@
 # dismapr: NOAA DisMAP data retrieval R package
+
 R package that provides functions to easily interact with NOAA's DisMAP (Distribution Mapping and Analysis Portal) APIs
 
 ## Overview
@@ -46,6 +47,16 @@ devtools::document()
 # build website
 pkgdown::build_site()
 ```
+
+### Next steps
+
+TODO:
+
+- [ ] animated GIF
+- [ ] Use [jsonld](https://docs.ropensci.org/jsonld/) to extract from InPort, eg:
+  - [Survey Catch-per-unit-effort CURRENT | InPort](https://www.fisheries.noaa.gov/inport/item/69743)
+- [ ] explore [`arcgislayers::arc_raster()`](https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html) for `get_dm_raster()`
+- [ ] consider `get_dm_raster_series()` to combine layers years and/or species
 
 ### Contributing
 
