@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">dismapr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,11 +58,17 @@
 <ul>
 <li><a href="https://www.fisheries.noaa.gov/inport/item/66799" class="external-link">NOAA Distribution Mapping and Analysis Portal (DisMAP) | InPort</a></li>
 </ul>
-<p>This package allows users to:</p>
+<p>This package allows users to get and plot:</p>
 <ol style="list-style-type: decimal">
-<li>Download species indicators data, overall shifts in location and depth over time</li>
-<li>Access and download interpolated biomass raster layers</li>
-<li>Retrieve survey location points</li>
+<li>
+<strong>Surveys</strong><br>
+Survey location points</li>
+<li>
+<strong>Rasters</strong><br>
+Rasters of interpolated biomass distribution</li>
+<li>
+<strong>Indicators</strong><br>
+Indicators of overall distributional shifts in center of gravity by depth and location</li>
 </ol>
 </div>
 <div class="section level2">
@@ -125,14 +131,12 @@
 <p>Potential next steps to do:</p>
 <ul class="task-list">
 <li><label><input type="checkbox">Consider <code>get_dm_raster_series()</code> to combine layers years and/or species</label></li>
-<li><label><input type="checkbox">Explore <a href="https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html" class="external-link"><code>arcgislayers::arc_raster()</code></a> for <code><a href="reference/get_dm_raster.html">get_dm_raster()</a></code></label></li>
+<li><label><input type="checkbox">Explore <a href="https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html" class="external-link"><code>arcgislayers::arc_raster()</code></a> for <code>get_dm_raster()</code></label></li>
 <li>
-<label><input type="checkbox">Add visualization functions for rasters, indicators and surveys with:</label>
+<label><input type="checkbox">Consider plotting enhancements:</label>
 <ul>
 <li>static:
 <ul>
-<li>plot: <a href="https://ggplot2.tidyverse.org/" class="external-link"><code>ggplot2</code></a>
-</li>
 <li>map:
 <ul>
 <li>vector: <a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">visualise sf objects</a> with ggplot2</li>
