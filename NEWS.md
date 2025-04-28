@@ -1,3 +1,12 @@
+# dismapr 0.5.0
+
+* Reorganized functions to all have `dm_` prefix.
+* Extracted visualization functions from the vignette:
+  - `dm_plot_indicators()`
+  - `dm_plot_raster()`
+  - `dm_plot_survey_locations()`
+* Added working examples to all functions.
+
 # dismapr 0.4.0
 
 * Added concepts to functions for Reference section: Indicators, Rasters, Surveys, Data.

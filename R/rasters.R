@@ -8,8 +8,9 @@
 #' @importFrom purrr pluck
 #' @concept rasters
 #' @examples
-#' get_dm_dataset_layers("NEUS_SPR")
-get_dm_dataset_layers <- function(dataset_code){
+#' # show list of available layers for Northeast US Spring dataset
+#' dm_get_dataset_layers("NEUS_SPR")
+dm_get_dataset_layers <- function(dataset_code){
   # dataset_code = "AI"
 
   stopifnot(
@@ -23,7 +24,7 @@ get_dm_dataset_layers <- function(dataset_code){
     sort()
 }
 
-get_dm_dataset_layer_year_slices <- function(dataset_code, layer){
+dm_get_dataset_layer_year_slices <- function(dataset_code, layer){
   # internal function so user doesn't have to worry about sliceId, only needs year
 
   # TODO: setup below as function
@@ -67,23 +68,24 @@ get_dm_dataset_layer_year_slices <- function(dataset_code, layer){
 #' @title Get DisMAP years for a dataset layer
 #' @description Get a list of years for a given species in a DisMAP dataset
 #' @param dataset_code The DisMAP dataset code (e.g., "AI", "EBS", "GOA"), per `dm_datasets$dataset_code`
-#' @param layer The layer in the dataset, typically the scientific name of the species or "Species Richness", per `get_dm_dataset_layers(dataset_code)`
+#' @param layer The layer in the dataset, typically the scientific name of the species or "Species Richness", per `dm_get_dataset_layers(dataset_code)`
 #' @return A vector of years available for the layer in the dataset
 #' @export
 #' @concept rasters
 #' @importFrom dplyr pull
 #' @examples
-#' get_dm_dataset_layer_years("NEUS_SPR", "Paralichthys dentatus")
-get_dm_dataset_layer_years <- function(dataset_code, layer){
-  get_dm_dataset_layer_year_slices(dataset_code, layer) |>
+#' # show list of available years for Summer Flounder in Northeast US Spring
+#' dm_get_dataset_layer_years("NEUS_SPR", "Paralichthys dentatus")
+dm_get_dataset_layer_years <- function(dataset_code, layer){
+  dm_get_dataset_layer_year_slices(dataset_code, layer) |>
     dplyr::pull(year)
 }
 
 #' @title Get DisMAP raster for dataset layer year
 #' @description Download a single interpolated biomass raster by slice ID
 #' @param dataset_code The DisMAP dataset code (e.g., "AI", "EBS", "GOA"), per `dm_datasets$dataset_code`
-#' @param layer The layer in the dataset, typically the scientific name of the species or "Species Richness", per `get_dm_dataset_layers(dataset_code)`
-#' @param year The year of the slice to download, per `get_dm_dataset_layer_years(dataset_code, layer)`
+#' @param layer The layer in the dataset, typically the scientific name of the species or "Species Richness", per `dm_get_dataset_layers(dataset_code)`
+#' @param year The year of the slice to download, per `dm_get_dataset_layer_years(dataset_code, layer)`
 #' @param out_tif optional output GeoTIFF path to write raster
 #' @param out_sr optional output spatial reference for output raster; defaults to native spatial reference
 #' @param transform Function to transform raster values (default is cube root): function(x) x^(1/3)
@@ -105,9 +107,20 @@ get_dm_dataset_layer_years <- function(dataset_code, layer){
 #' @export
 #' @concept rasters
 #' @examples
-#' get_dm_raster("AI", "Species Richness", 2015) |> terra::plet()
-#' get_dm_raster("NEUS_SPR", "Paralichthys dentatus", 2015, out_tif = "ne_spring_summer_flounder_2015.tif")  |> terra::plet()
-get_dm_raster <- function(
+#' # get raster for a specific dataset, layer, and year
+#' dataset_code <- "NEUS_SPR"
+#' layer <- "Paralichthys dentatus"
+#' year <- 2015
+#'
+#' # download the raster
+#' r <- dm_get_raster(dataset_code, layer, year)
+#' r
+#'
+#' # alternatively, save to a file
+#' tif_path <- tempfile(fileext = ".tif")
+#' r <- dm_get_raster(dataset_code, layer, year, tif_path)
+#' file.exists(tif_path)
+dm_get_raster <- function(
     dataset_code,
     layer,
     year,
@@ -118,9 +131,6 @@ get_dm_raster <- function(
     bbox_sr   = NULL,
     overwrite = F,
     verbose   = F) {
-
-  require(httr2)
-  require(terra)
 
   if (!is.null(out_tif) && file.exists(out_tif) && !overwrite) {
     if (verbose)
@@ -136,14 +146,14 @@ get_dm_raster <- function(
     stop("dataset_code must be a single value")
 
   # check for valid layer
-  lyrs <- get_dm_dataset_layers(dataset_code)
+  lyrs <- dm_get_dataset_layers(dataset_code)
   if (!layer %in% lyrs)
     stop("layer must be one of the dataset's available layers: ", paste(lyrs, collapse = ", "))
   if (length(layer) != 1)
     stop("layer must be a single value")
 
   # check for valid year
-  d_yr_slices <- get_dm_dataset_layer_year_slices(dataset_code, layer)
+  d_yr_slices <- dm_get_dataset_layer_year_slices(dataset_code, layer)
   yrs <- d_yr_slices$year
   if (!year %in% yrs)
     stop("year must be one of the dataset's available years: ", paste(yrs, collapse = ", "))
@@ -215,5 +225,62 @@ get_dm_raster <- function(
   }
 
   r
+}
+
+#' Plot raster data
+#'
+#' Creates a visualization of the raster data, either interactively or statically.
+#'
+#' @param r A SpatRaster object
+#' @param interactive Whether to create an interactive plot (default: TRUE)
+#' @param tiles Background tiles for interactive plot (default: "Esri.OceanBasemap")
+#' @param main Map title for interactive plot (default: NULL)
+#' @param var Variable name to plot in static plot (default: determined from raster)
+#' @param title Plot title for static plot (default: NULL)
+#' @param fill_palette Color palette function for static plot (default: scale_fill_viridis_c)
+#' @param ... Additional arguments passed to plotting functions
+#'
+#' @return A mapview object (interactive=TRUE) or ggplot object (interactive=FALSE)
+#' @export
+#' @concept rasters
+#' @importFrom mapview mapView
+#' @importFrom ggplot2 ggplot geom_tile aes scale_fill_viridis_c coord_fixed labs
+#' @importFrom terra as.data.frame
+#'
+#' @examples
+#' # Get a raster for demonstration
+#' dataset_code <- "NEUS_SPR"
+#' layer <- "Paralichthys dentatus"
+#' year <- 2015
+#' r <- dm_get_raster(dataset_code, layer, year)
+#'
+#' # Interactive plot
+#' # Not run: dm_plot_raster(r, interactive = TRUE, main = paste(dataset_code, "Summer Flounder", year))
+#'
+#' # Static plot
+#' dm_plot_raster(r, interactive = FALSE, title = paste(dataset_code, "Summer Flounder", year))
+dm_plot_raster <- function(r,
+                         interactive = TRUE,
+                         tiles = "Esri.OceanBasemap",
+                         main = NULL,
+                         var = NULL,
+                         title = NULL,
+                         fill_palette = ggplot2::scale_fill_viridis_c,
+                         ...) {
+  if (interactive) {
+    mapview::mapView(r, map.types = tiles, layer.name = main, ...)
+  } else {
+    if(is.null(var)) var <- names(r)[1]
+
+    rdf <- terra::as.data.frame(r, xy = TRUE)
+
+    ggplot2::ggplot() +
+      ggplot2::geom_tile(
+        data = rdf,
+        ggplot2::aes(x = x, y = y, fill = .data[[var]]), ...) +
+      fill_palette() +
+      ggplot2::coord_fixed() +
+      ggplot2::labs(title = title)
+  }
 }
 

@@ -1,3 +1,30 @@
+# PROMPT 2025-04-28
+
+- Extract visualization functions from the vignette @vignettes/articles/dismapr.Rmd. 
+Apply reasonable arguments, including for color ramps, and pass on extra arguments
+to the default underlying plotting function with an ellipsis (`...`). Add the
+ROxygen2 `#' @concept viz` to each of these functions. Update and simplify the
+vignette to using them.
+- On second thought, move the @R/viz.R functions to the appropriate 
+  @R/{indicators|rasters|surveys}.R file and apply the same 
+  `#' @concept {indicators|rasters|surveys}`.
+- Reorient the naming of all functions so they are prefixed by `dm_*`:
+  - Rename `get_dm_*` to `dm_get_*`
+  - Rename `plot_*` to `dm_plot_*`
+- Add `interactive = T` default to `dm_plot_*` functions, so `interactive = F` 
+  results in the static plot for: `dm_plot_raster()`, `dm_plot_survey_locations()`.
+- Rename `dm_plot_cog()` to `dm_plot_indicators()`.
+- Rearrange sections in @vignettes/articles/dismapr.Rmd to match @README.md and @_pkgdown.yml:
+  1. **Surveys**\
+     Survey location points
+  2. **Rasters**\
+     Rasters of interpolated biomass distribution
+  3. **Indicators**\
+     Indicators of overall distributional shifts by depth and latitude
+- Add working examples to all functions (pull code from @vignettes/articles/dismapr.Rmd) and show outputs
+  (outputs to from `pkgdown::build_site()`)
+     
+
 # PROMPT
 
 Convert this script into a usable R function and library for retrieving IDW rasters of interpolated bottom trawl surveys

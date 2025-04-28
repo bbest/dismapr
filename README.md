@@ -8,11 +8,14 @@ DisMapR is an R package that provides functions to easily interact with NOAA's N
 
 - [NOAA Distribution Mapping and Analysis Portal (DisMAP) | InPort](https://www.fisheries.noaa.gov/inport/item/66799)
 
-This package allows users to:
+This package allows users to get and plot:
 
-1. Download species indicators data, overall shifts in location and depth over time
-2. Access and download interpolated biomass raster layers
-3. Retrieve survey location points
+1. **Surveys**\
+   Survey location points
+2. **Rasters**\
+   Rasters of interpolated biomass distribution
+3. **Indicators**\
+   Indicators of overall distributional shifts in center of gravity by depth and location
 
 ## Installation
 
@@ -70,9 +73,8 @@ Potential next steps to do:
 
 - [ ] Consider `get_dm_raster_series()` to combine layers years and/or species
 - [ ] Explore [`arcgislayers::arc_raster()`](https://developers.arcgis.com/r-bridge/api-reference/arcgislayers/arc_raster.html) for `get_dm_raster()`
-- [ ] Add visualization functions for rasters, indicators and surveys with:
+- [ ] Consider plotting enhancements:
   - static:
-    - plot: [`ggplot2`](https://ggplot2.tidyverse.org/)
     - map: 
       - vector: [visualise sf objects](https://ggplot2.tidyverse.org/reference/ggsf.html) with ggplot2
       - raster: [`geom_raster()`](https://ggplot2.tidyverse.org/reference/geom_tile.html) with ggplot2

@@ -14,18 +14,19 @@
 #' @importFrom tibble tibble
 #' @concept indicators
 #' @export
-get_dm_indicators <- function(
+#' @examples
+#' # Get indicators data for American Lobster in Northeast US Spring
+#' tbl_lobster_indicators <- dm_get_indicators(
+#'   common_name = "American lobster",
+#'   region      = "Northeast US",
+#'   season      = "Spring")
+#' tbl_lobster_indicators
+dm_get_indicators <- function(
     ...) {
 
-  require(httr2)
-  require(jsonlite)
   if (!(require("arcgisutils"))) {
     stop("Please install the required arcgis packages with the command: install.packages('arcgis', repos = 'https://r-arcgis.r-universe.dev')")
   }
-  require(stringr)
-  require(purrr)
-  require(glue)
-  require(janitor)
 
   base_url = "https://services2.arcgis.com/C8EMgrsFcRFL6LrL/ArcGIS/rest/services/Indicators_CURRENT/FeatureServer/1/query"
 
@@ -86,4 +87,54 @@ get_dm_indicators <- function(
     dplyr::tibble()
 
   return(d)
+}
+
+#' Plot indicators data
+#'
+#' Creates a visualization of indicators data, including center of gravity changes over time for a species.
+#'
+#' @param data A data frame containing indicators data, typically from dm_get_indicators()
+#' @param x Column name for longitude (default: "center_of_gravity_longitude")
+#' @param y Column name for latitude (default: "center_of_gravity_latitude")
+#' @param color Column name for color aesthetic (default: "year")
+#' @param title Plot title (default: "Indicators")
+#' @param ... Additional arguments passed to ggplot2 functions
+#'
+#' @return A ggplot object
+#' @export
+#' @concept indicators
+#' @importFrom rlang .data
+#' @importFrom ggplot2 ggplot geom_point aes labs theme_classic theme element_rect
+#'
+#' @examples
+#' tbl_lobster_indicators <- dm_get_indicators(
+#'   common_name = "American lobster",
+#'   region      = "Northeast US",
+#'   season      = "Spring")
+#' tbl_lobster_indicators
+#'
+#' # plot center of gravity changes over time
+#' dm_plot_indicators(
+#'   tbl_lobster_indicators,
+#'   title = "American Lobster Center of Gravity")
+dm_plot_indicators <- function(
+    data,
+    x = "center_of_gravity_longitude",
+    y = "center_of_gravity_latitude",
+    color = "year",
+    title = "Indicators",
+    ...) {
+  ggplot2::ggplot(data = data) +
+    ggplot2::geom_point(ggplot2::aes(
+      x = .data[[x]],
+      y = .data[[y]],
+      color = .data[[color]]), ...) +
+    ggplot2::labs(
+      x = "Longitude",
+      y = "Latitude",
+      title = title) +
+    ggplot2::theme_classic() +
+    ggplot2::theme(
+      panel.border = ggplot2::element_rect(
+        colour = "black", fill = NA, linewidth = 1))
 }

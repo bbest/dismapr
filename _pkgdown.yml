@@ -3,18 +3,18 @@ template:
   bootstrap: 5
 
 reference:
-- title: Indicators
-  desc: Indicators of distributional shifts
-  contents:
-  - has_concept("indicators")
-- title: Rasters
-  desc: Rasters of biomass distribution
-  contents:
-  - has_concept("rasters")
 - title: Surveys
   desc: Survey locations
   contents:
   - has_concept("surveys")
+- title: Rasters
+  desc: Rasters of biomass distribution
+  contents:
+  - has_concept("rasters")
+- title: Indicators
+  desc: Indicators of overall distributional shifts in center of gravity by depth and location
+  contents:
+  - has_concept("indicators")
 - title: Data
   desc: Datasets used in the package
   contents:

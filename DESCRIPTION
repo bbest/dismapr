@@ -1,6 +1,6 @@
 Package: dismapr
 Title: NOAA's Distribution Mapping and Analysis Portal (DisMAP) data retrieval
-Version: 0.4.0
+Version: 0.5.0
 Authors@R: c(
     person("Ben", "Best", , "ben@ecoquants.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2686-0784")),
     person("Melissa", "Karp", , "melissa.karp@noaa.gov", role = c("aut"), comment = c(ORCID = "0000-0003-2404-2937")))
@@ -19,9 +19,12 @@ Imports:
     arcgislayers,
     arcgisutils,
     dplyr,
+    ggplot2,
     glue,
     janitor,
+    mapview,
     purrr,
+    rlang,
     sf,
     stringr,
     terra,
